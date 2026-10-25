@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yellow Black Hardware — Výkonné herné PC a servis v Bratislave</title>
+    <meta name="description" content="Profesionálna montáž, servis notebookov a PC, predaj komponentov v Bratislave.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="img/IMG_20261025_194117_844.webp">
+    <style>
+        :root {
+            --yellow: #F9CF09;
+            --bg: #000000;
+            --panel: #171717;
+            --text: #F5F5F5;
+            --muted: #888888;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+        }
+        header {
+            background: #000;
+            border-bottom: 1px solid rgba(249,207,9,0.2);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+        .logo-img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+        .logo-text {
+            color: var(--yellow);
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--yellow);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 24px;
+        }
+        section {
+            margin-bottom: 70px;
+        }
+        h1, h2 {
+            color: var(--yellow);
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+        h1 { font-size: 38px; }
+        h2 { font-size: 28px; }
+        
+        /* Intro Section */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .intro-text p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        .features-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+        .features-list li {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        .features-list strong {
+            color: #fff;
+        }
+        .intro-pc-wrapper {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border: 1px solid rgba(249,207,9,0.3);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .intro-pc-img {
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
+
+        /* Standard Grid for Products */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: linear-gradient(145deg, #1c1c1c 0%, #111 100%);
+            border: 1px solid rgba(249,207,9,0.2);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--yellow);
+        }
+        .product-img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            background: #0d0d0d;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(249,207,9,0.2);
+            padding: 10px;
+        }
+        .card h3 {
+            color: var(--yellow);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .card p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .price-badge {
+            align-self: flex-start;
+            background: var(--yellow);
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+        .price-badge.free {
+            background: #28a745;
+            color: #fff;
+        }
+
+        /* --- FLIP CARD SYSTEM FOR SERVICES --- */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 320px;
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s ease-in-out;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid rgba(249,207,9,0.2);
+            background: linear-gradient(145deg, #1c1c1c 0%, #111 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .flip-card-front {
+            justify-content: center;
+            gap: 15px;
+        }
+        .flip-card-front img {
+            width: 100%;
+            height: 190px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #0d0d0d;
+            padding: 5px;
+            border: 1px solid rgba(249,207,9,0.15);
+        }
+        .flip-card-front h3 {
+            color: var(--yellow);
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            border-color: var(--yellow);
+            justify-content: space-between;
+            text-align: left;
+        }
+        .flip-card-back h3 {
+            color: var(--yellow);
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        .flip-card-back p {
+            color: #aaa;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .discount-banner {
+            background: linear-gradient(90deg, rgba(249,207,9,0.15) 0%, rgba(0,0,0,0.8) 100%);
+            border: 2px solid var(--yellow);
+            border-radius: 14px;
+            padding: 25px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .discount-banner h3 {
+            color: var(--yellow);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .discount-banner p {
+            color: #ddd;
+            font-size: 15px;
+        }
+
+        .location-box {
+            background: var(--panel);
+            border: 1px solid rgba(249,207,9,0.3);
+            border-radius: 16px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        .location-info h3 {
+            color: var(--yellow);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .location-info p {
+            font-size: 16px;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+        .map-img {
+            width: 100%;
+            height: 300px;
+            border-radius: 12px;
+            border: 1px solid rgba(249,207,9,0.3);
+            object-fit: cover;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #222;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .intro-grid, .location-box, .discount-banner {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                text-align: center;
+            }
+            header {
+                padding: 15px;
+            }
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#intro" class="logo-container">
+            <img src="img/IMG_20261025_194117_844.webp" alt="Yellow Black Hardware Logo" class="logo-img">
+            <span class="logo-text">Yellow Black Hardware</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#intro">Úvod</a></li>
+                <li><a href="#products">Produkcia a Notebooky</a></li>
+                <li><a href="#services">Servis a Služby</a></li>
+                <li><a href="#location">Kde sa nachádzame</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- Úvod -->
+        <section id="intro">
+            <div class="intro-grid">
+                <div class="intro-text">
+                    <h1>Yellow Black Hardware Bratislava</h1>
+                    <p>Profesionálna montáž herných PC, predaj notebookov a kompletný servis výpočtovej techniky v Bratislave.</p>
+                    <ul class="features-list">
+                        <li>✔️ <strong>Predaj a servis notebookov & PC</strong></li>
+                        <li>✔️ <strong>Rýchla diagnostika zdarma</strong></li>
+                        <li>✔️ <strong>Spoľahlivé komponenty a záruka</strong></li>
+                        <li>✔️ <strong>Doručenie po celej SR aj do zahraničia</strong></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="intro-pc-wrapper">
+                        <img src="img/green_pc.png" alt="Výkonné herné PC" class="intro-pc-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produkcia -->
+        <section id="products">
+            <h2>Naša produkcia a produkty</h2>
+            <div class="cards-grid">
+                
+                <div class="card">
+                    <div>
+                        <img src="img/pc.webp" alt="Herné a pracovné PC" class="product-img">
+                        <h3>Herné a pracovné PC</h3>
+                        <p>Individuálne zostavy na mieru pre hranie hier, prácu s grafikou a strih videa.</p>
+                    </div>
+                    <div class="price-badge">od 1 050 €</div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <img src="img/nootebook.webp" alt="Predaj notebookov" class="product-img">
+                        <h3>Predaj notebookov</h3>
+                        <p>Široký výber herných aj kancelárskych notebookov s kompletnou prípravou na používanie.</p>
+                    </div>
+                    <div class="price-badge">Podľa ponuky</div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <img src="img/component.webp" alt="Komponenty a príslušenstvo" class="product-img">
+                        <h3>Komponenty a príslušenstvo</h3>
+                        <p>Grafické karty, procesory, základné dosky, SSD disky a herné periférie.</p>
+                    </div>
+                    <div class="price-badge">Podľa ponuky</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Služby -->
+        <section id="services">
+            <h2>Naše služby a cenník servisu</h2>
+            <div class="cards-grid">
+                
+                <!-- 1. Objednávka dielov -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img/objednavka.webp" alt="Objednávka dielov">
+                            <h3>Objednávka dielov a tovaru</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>Objednávka dielov a tovaru</h3>
+                                <p>Vyhľadanie a objednanie potrebných komponentov alebo náhradných dielov pre váš PC/notebook.</p>
+                            </div>
+                            <div class="price-badge free">ZDARMA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Diagnostika -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img/diag.webp" alt="Diagnostika">
+                            <h3>Diagnostika a obhliadka PC</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>Diagnostika a obhliadka PC</h3>
+                                <p>Kompletná kontrola počítača alebo notebooku, zistenie závady a návrh riešenia.</p>
+                            </div>
+                            <div class="price-badge free">ZDARMA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Aktivácia Windows -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img/key.webp" alt="Aktivácia Windows">
+                            <h3>Aktivácia Windows (Kľúč)</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>Aktivácia Windows (Kľúč)</h3>
+                                <p>Dodanie a aktivácia originálneho licenčného kľúča pre plnú funkčnosť systému Windows.</p>
+                            </div>
+                            <div class="price-badge">5,00 € – 6,50 €</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Doručenie BA -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img/bratislava.webp" alt="Doručenie Bratislava">
+                            <h3>Doručenie v rámci Bratislavy</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>Doručenie v rámci Bratislavy</h3>
+                                <p>Rýchle doručenie vášho PC, notebooku alebo komponentov priamo k vám doma.</p>
+                            </div>
+                            <div class="price-badge">od 10 €</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Inštalácia Windows -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img/win.webp" alt="Inštalácia Windows">
+                            <h3>Inštalácia Windows</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>Inštalácia Windows</h3>
+                                <p>Kompletná preinštalácia operačného systému Windows, inštalácia ovládačov a základného softvéru.</p>
+                            </div>
+                            <div class="price-badge">15 €</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Servis PC / Výmena dosky -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img/servis.webp" alt="Servis PC/Notebookov & Výmena dosky">
+                            <h3>Servis PC/Notebookov & Výmena dosky</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>Servis PC/Notebookov & Výmena dosky</h3>
+                                <p>Kompletná oprava notebookov a PC, výmena základnej dosky, čistenie a výmena teplovodivej pasty.</p>
+                            </div>
+                            <div class="price-badge">20 €</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Doručenie SK -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img/slovakia.webp" alt="Doručenie po Slovensku">
+                            <h3>Doručenie po Slovensku</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>Doručenie po Slovensku</h3>
+                                <p>Bezpečné doručenie techniky v rámci ostatných regiónov Slovenska.</p>
+                            </div>
+                            <div class="price-badge">20 €</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Medzinárodné doručenie -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img/earth.jpg" alt="Medzinárodné doručenie">
+                            <h3>Medzinárodné doručenie</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>Medzinárodné doručenie</h3>
+                                <p>Preprava a doručenie zariadení zo zahraničia alebo do zahraničia.</p>
+                            </div>
+                            <div class="price-badge">25 €</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="discount-banner">
+                <div>
+                    <h3>🎁 Zľavy pre stálych zákazníkov</h3>
+                    <p>Vážime si našich verných klientov! Ak u nás nakupujete pravidelne alebo využívate naše servisné služby opakovane, získate špeciálne zľavy na servis aj produkty.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kde sa nachádzame -->
+        <section id="location">
+            <h2>Kde sa nachádzame</h2>
+            <div class="location-box">
+                <div class="location-info">
+                    <h3>Yellow Black Hardware</h3>
+                    <p><strong>Lokalita:</strong> Bratislava, Slovensko</p>
+                    <p><strong>Otváracie hodiny:</strong> Pondelok – Piatok: 10:00 – 19:00</p>
+                    <p><strong>Email:</strong> info@yellowblack.sk</p>
+                    <p style="margin-top: 20px; color: var(--yellow);">Kontaktujte nás pre objednávky, servis notebookov alebo konzultáciu!</p>
+                </div>
+                <div>
+                    <img src="img/map.png" alt="Yellow Black Hardware Map" class="map-img">
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Yellow Black Hardware Bratislava. Všetky práva vyhradené.</p>
+    </footer>
+
+</body>
+</html>
